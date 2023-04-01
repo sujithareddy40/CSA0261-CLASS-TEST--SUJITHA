@@ -1,0 +1,39 @@
+
+#include <stdio.h>
+#include <math.h>
+
+union Shape {
+    float radius;
+    struct {
+        float length;
+        float width;
+    } rectangle;
+};
+
+int main() {
+    union Shape shape;
+    char shape_type;
+    float area;
+
+    printf("Enter shape type (c for circle, r for rectangle): ");
+    scanf(" %c", &shape_type);
+
+    if (shape_type == 'c') {
+        printf("Enter radius: ");
+        scanf("%f", &shape.radius);
+        area = M_PI * pow(shape.radius, 2);
+    } else if (shape_type == 'r') {
+        printf("Enter length: ");
+        scanf("%f", &shape.rectangle.length);
+        printf("Enter width: ");
+        scanf("%f", &shape.rectangle.width);
+        area = shape.rectangle.length * shape.rectangle.width;
+    } else {
+        printf("Invalid shape type\n");
+        return 1;
+    }
+
+    printf("The area of the %s is %.2f\n", shape_type == 'c' ? "circle" : "rectangle", area);
+
+    return 0;
+}
